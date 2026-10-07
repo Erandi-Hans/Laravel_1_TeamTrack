@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ඩේටාቤස් එකේ සේවකයින් නැත්නම් මේක පෙන්වයි -->
+                        <!-- if the database donn't have employees show that -->
                         @if($employees->count() > 0)
                          @foreach($employees as $employee)
     <tr>
@@ -36,7 +36,7 @@
             <a href="/employees/{{ $employee->id }}" class="btn btn-info btn-sm">View</a>
             <a href="/employees/{{ $employee->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
             
-            <!-- Delete කිරීම සඳහා Form එක -->
+            <!-- Delete the Form  -->
             <form action="/employees/{{ $employee->id }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')

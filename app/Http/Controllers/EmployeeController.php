@@ -3,31 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Employee; // අපි කලින් හැදූ Employee Model එක සම්බන්ධ කරගැනීම
+use App\Models\Employee; // import employee model
 
 class EmployeeController extends Controller
 {
-    // සියලුම සේවකයින් පෙන්වන ඩෑෂ්බෝඩ් මෙතඩ් එක
+    // Dashboard
     public function index()
     {
-        // ඩේටාබේස් එකෙන් සියලුම සේවකයින් ලබා ගැනීම
+        // To show all employeees
         $employees = Employee::all(); 
 
-        // employees විස්තරය view එකට යැවීම
+        // employee details send to  the view
         return view('employees.index', compact('employees'));
 
         
     }
-    // 1. අලුත් සේවකයෙක් එකතු කරන Form එක පෙන්වීම
+    // 1.New employee create form
     public function create()
     {
         return view('employees.create');
     }
 
-    // 2. Form එකෙන් එන ඩේටා Database එකේ Save කරගැනීම
+    // 2. Form data save in the database
     public function store(Request $request)
     {
-        // ඩේටා වලට Validation එකක් දාලා චෙක් කරගැනීම
+        // check data validation
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email',
@@ -35,7 +35,7 @@ class EmployeeController extends Controller
             'salary' => 'required|numeric',
         ]);
 
-        // Database එකට ඩේටා Save කිරීම
+        // save into database
         Employee::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -43,30 +43,30 @@ class EmployeeController extends Controller
             'salary' => $request->salary,
         ]);
 
-        // සාර්ථකව සේව් වුණාම Employee List එකට ආපහු redirect කිරීම
+        // After successfully save redirect the emplpoyes table
         return redirect('/employees')->with('success', 'Employee added successfully!');
     }
 
-    // 3. තනි සේවකයෙකුගේ විස්තර පෙන්වීම (View)
+    // 3. show single employee (View)
     public function show($id)
     {
         $employee = Employee::findOrFail($id);
         return view('employees.show', compact('employee'));
     }
 
-    // 4. සේවකයෙකුගේ විස්තර වෙනස් කරන Form එක පෙන්වීම (Edit)
+    // 4. Change the employee details (Edit)
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
         return view('employees.edit', compact('employee'));
     }
 
-    // 5. වෙනස් කළ ඩේටා ඩේටාබේස් එකේ Update කිරීම (Update)
+    // 5. Saved data update into database (Update)
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:employees,email,' . $id, // තමන්ගේ ඊමේල් එක හැර වෙන එකක් චෙක් කිරීමට
+            'email' => 'required|email|unique:employees,email,' . $id, 
             'department' => 'required|string|max:255',
             'salary' => 'required|numeric',
         ]);
@@ -82,7 +82,7 @@ class EmployeeController extends Controller
         return redirect('/employees')->with('success', 'Employee updated successfully!');
     }
 
-    // 6. සේවකයෙක් ඉවත් කිරීම (Delete)
+    // 6. employee details (Delete)
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);

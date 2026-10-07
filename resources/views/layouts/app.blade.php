@@ -10,10 +10,10 @@
 </head>
 <body class="bg-light">
 
-    <!-- Navbar එක (උඩින් පෙනෙන මෙනුව) -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">TeamTrack 🚀</a>
+            <a class="navbar-brand fw-bold" href="#">TeamTrack </a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link active" href="#">Employees</a>
                 <a class="nav-link btn btn-primary text-white btn-sm px-3 ms-2" href="/employees/create">Add Employee</a>
@@ -21,7 +21,7 @@
         </div>
     </nav>
 
-    <!-- ප්‍රධාන කන්ටෙන්ට් එක වැටෙන තැන -->
+    <!-- main content -->
     <div class="container my-5">
         @yield('content')
     </div>
